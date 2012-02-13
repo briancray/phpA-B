@@ -3,9 +3,8 @@
 /*
 	Name			:	phpA/B v1.2
 	Author			:	Brian Cray
-	License			:	Attribution-NonCommercial-ShareAlike 3.0 Unported
-	License URL		:	http://creativecommons.org/licenses/by-nc-sa/3.0/
-	Commercial use	:	phpA/B requires paid license fee for commercial use. Contact bcrayzie@gmail.com for commercial license requests
+	License			:	GPL 2.0
+	License URL		:	http://www.gnu.org/licenses/gpl-2.0.html
 	URL				:	phpabtest.com
 */
 
