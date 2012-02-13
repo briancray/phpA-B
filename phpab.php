@@ -185,7 +185,6 @@ class phpab
 				$this->current_variation = $_COOKIE[$key];
 			}
 			
-			$this->current_variation = $_COOKIE[$key];
 			if(empty($this->current_variation))
 			{
 				$this->current_variation = '!unset';
