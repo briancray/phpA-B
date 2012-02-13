@@ -179,7 +179,13 @@ class phpab
 
 		if($this->trial_mode == FALSE)
 		{
-			$this->current_variation = $_COOKIE[$this->tag . '-' . $this->test_name];
+			$key = $this->tag . '-' . $this->test_name;
+			if(array_key_exists($key, $_COOKIE))
+			{
+				$this->current_variation = $_COOKIE[$key];
+			}
+			
+			$this->current_variation = $_COOKIE[$key];
 			if(empty($this->current_variation))
 			{
 				$this->current_variation = '!unset';
