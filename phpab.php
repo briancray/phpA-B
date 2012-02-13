@@ -178,7 +178,12 @@ class phpab
 
 		if($this->trial_mode == FALSE)
 		{
-			$this->current_variation = $_COOKIE[$this->tag . '-' . $this->test_name];
+			$key = $this->tag . '-' . $this->test_name;
+			if(array_key_exists($key, $_COOKIE))
+			{
+				$this->current_variation = $_COOKIE[$key];
+			}
+			
 			if(empty($this->current_variation))
 			{
 				$this->current_variation = '!unset';
@@ -218,7 +223,7 @@ class phpab
 	{
 		$this->content = $buffer;
 		
-		if($test_ran == FALSE)
+		if($this->test_ran == FALSE)
 		{
 			$this->run_test();
 		}
@@ -285,6 +290,6 @@ class phpab
 			$test_close = strpos($this->content, $close_tag, $test_open);
 		}
 		
-		$test_ran = TRUE;
+		$this->test_ran = TRUE;
 	}
 }
