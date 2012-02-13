@@ -224,7 +224,7 @@ class phpab
 	{
 		$this->content = $buffer;
 		
-		if($test_ran == FALSE)
+		if($this->test_ran == FALSE)
 		{
 			$this->run_test();
 		}
@@ -291,6 +291,6 @@ class phpab
 			$test_close = strpos($this->content, $close_tag, $test_open);
 		}
 		
-		$test_ran = TRUE;
+		$this->test_ran = TRUE;
 	}
 }
