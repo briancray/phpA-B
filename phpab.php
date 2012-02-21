@@ -100,6 +100,7 @@ class phpab
 				$async = preg_match('/_gaq\.push\(\[[\'\"]_trackPageview[\'\"]\]\)/', $this->content, $matches, PREG_OFFSET_CAPTURE);
 				if($async == FALSE)
 				{
+          $auto_fail = TRUE;
 					$async = FALSE;
 				}
 				else
