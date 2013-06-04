@@ -74,15 +74,15 @@ class phpab
 		$try_auto = FALSE;
 		$sync = '{' . $this->tag . ' ' . $this->test_name . ' ga_sync}';
 		$async = '{' . $this->tag . ' ' . $this->test_name . ' ga_async}';
-		$sync = strpos($this->content, $sync);
-		if($sync !== FALSE)
+		$syncPos = strpos($this->content, $sync);
+		if($syncPos !== FALSE)
 		{
 			$this->content = str_replace($sync, 'pageTracker._setCustomVar(' . $this->ga_slot . ', "' . $this->test_name . '", "' . $this->current_variation . '", 3);', $this->content);
 		}
 		else
 		{
-			$async = strpos($this->content, $async);
-			if($async !== FALSE)
+			$asyncPos = strpos($this->content, $async);
+			if($asyncPos !== FALSE)
 			{
 				$this->content = str_replace($async, '_gaq.push(["_setCustomVar", ' . $this->ga_slot . ', "' . $this->test_name . '", "' . $this->current_variation . '", 3]);', $this->content);
 			}
