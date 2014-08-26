@@ -120,7 +120,7 @@ class phpab
 			}
 			elseif($auto_fail === FALSE && $async !== FALSE)
 			{
-				$this->content = substr($this->content, 0, $async - 1) . '_gaq.push(["_setCustomVar", ' . $this->ga_slot . ', "' . $this->test_name . '", "' . $this->current_variation . '", 3]);' . substr($this->content, $async);
+				$this->content = substr($this->content, 0, $async - 1) . ' _gaq.push(["_setCustomVar", ' . $this->ga_slot . ', "' . $this->test_name . '", "' . $this->current_variation . '", 3]); ' . substr($this->content, $async);
 			}
 		}
 	}
