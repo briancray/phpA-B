@@ -98,7 +98,6 @@ class phpab
 		
 		if($this->auto_ga == TRUE && $try_auto == TRUE)
 		{
-				          																error_log("BAAAM");
 
 			$sync = strpos($this->content, 'pageTracker._trackPageview');
 			if($sync === FALSE)
@@ -118,7 +117,6 @@ class phpab
 				}
 				else
 				{
-					error_log("ASYNC:".$async);
 					$auto_fail = FALSE;
 					$async = $matches[0][1];
 				}
