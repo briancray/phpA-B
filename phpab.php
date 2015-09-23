@@ -127,7 +127,8 @@ class phpab
 	
 	private function record_user_segment ()
 	{
-		setcookie($this->tag . '-' . $this->test_name, $this->current_variation, time() + (60 * 60 * 24 * 365), '/', $this->test_domain);
+		$cookie_domain = (($colon_position = strrpos($this->test_domain, ":")) === false) ? $this->test_domain : substr($this->test_domain, 0, $colon_position);
+        	setcookie($this->tag . '-' . $this->test_name, $this->current_variation, time() + (60 * 60 * 24 * 365), '/', $cookie_domain);
 	}
 	
 	public function set_domain ($d)
