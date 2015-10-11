@@ -151,6 +151,30 @@ class phpab
 		$this->tag = $t;
 	}
 	
+	public function set_current_variation ($new)
+	{
+		if($this->current_variation != '!unset' && $this->current_variation_key != -1)
+		{
+			return FALSE;
+		}
+		
+		array_unshift($this->variations, array('name' => 'control', 'value' => ''));
+		
+		$this->current_variation_key = 0;
+		foreach($this->variations as $n => $v)
+		{
+			if($v['name'] == $new)
+			{
+				$this->current_variation = $new;
+				return TRUE;
+			}
+			$this->current_variation_key++;
+		}
+		
+		unset($this->current_variation_key);
+		return FALSE;
+	}
+	
 	public function add_variation ($n, $v = '')
 	{
 		$n = trim(strtolower($n));
