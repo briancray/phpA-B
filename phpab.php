@@ -71,37 +71,49 @@ class phpab
 	
 	private function setup_ga ()
 	{
+
 		$try_auto = FALSE;
 		$sync = '{' . $this->tag . ' ' . $this->test_name . ' ga_sync}';
 		$async = '{' . $this->tag . ' ' . $this->test_name . ' ga_async}';
+		$analyticsjs = '{' . $this->tag . ' ' . $this->test_name . ' analytics_js}';
 		$syncPos = strpos($this->content, $sync);
+		$asyncPos = strpos($this->content, $async);
+		$analyticsjsPos = strpos($this->content, $analyticsjs);
 		if($syncPos !== FALSE)
 		{
 			$this->content = str_replace($sync, 'pageTracker._setCustomVar(' . $this->ga_slot . ', "' . $this->test_name . '", "' . $this->current_variation . '", 3);', $this->content);
 		}
+		elseif ($asyncPos !== FALSE) 
+		{
+			$this->content = str_replace($async, '_gaq.push(["_setCustomVar", ' . $this->ga_slot . ', "' . $this->test_name . '", "' . $this->current_variation . '", 3]);', $this->content);
+		}
+		elseif ($analyticsjsPos !== FALSE) 
+		{
+			$this->content = str_replace($analyticsjs, 'ga("set", "dimension' . $this->ga_slot . '", "' . $this->current_variation  .'");', $this->content);
+		}
 		else
 		{
-			$asyncPos = strpos($this->content, $async);
-			if($asyncPos !== FALSE)
-			{
-				$this->content = str_replace($async, '_gaq.push(["_setCustomVar", ' . $this->ga_slot . ', "' . $this->test_name . '", "' . $this->current_variation . '", 3]);', $this->content);
-			}
-			else
-			{
-				$try_auto = TRUE;
-			}
+			$try_auto = TRUE;
 		}
 		
 		if($this->auto_ga == TRUE && $try_auto == TRUE)
 		{
+
 			$sync = strpos($this->content, 'pageTracker._trackPageview');
 			if($sync === FALSE)
 			{
 				$async = preg_match('/_gaq\.push\(\[[\'\"]_trackPageview[\'\"]\]\)/', $this->content, $matches, PREG_OFFSET_CAPTURE);
-				if($async == FALSE)
+				if($async === FALSE || $async === 0)
 				{
-          $auto_fail = TRUE;
 					$async = FALSE;
+					$analyticsjs = strpos($this->content, "ga('send', 'pageview');");
+					if ($analyticsjs === FALSE) 
+					{
+	          			$auto_fail = TRUE;
+					} else
+					{
+	          			$auto_fail = FALSE;
+					}
 				}
 				else
 				{
@@ -122,6 +134,11 @@ class phpab
 			{
 				$this->content = substr($this->content, 0, $async - 1) . ' _gaq.push(["_setCustomVar", ' . $this->ga_slot . ', "' . $this->test_name . '", "' . $this->current_variation . '", 3]); ' . substr($this->content, $async);
 			}
+			elseif ($auto_fail === FALSE && $analyticsjs !== FALSE) 
+			{
+				$this->content = substr($this->content, 0, $analyticsjs - 1) . 'ga("set", "dimension' . $this->ga_slot . '", "' . $this->current_variation  .'");' . substr($this->content, $analyticsjs);
+			}
+
 		}
 	}
 	
