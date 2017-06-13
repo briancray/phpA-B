@@ -29,7 +29,22 @@ class phpab
 	{
 		if($this->detect_bots == TRUE)
 		{
-			$bots = array('googlebot', 'msnbot', 'slurp', 'ask jeeves', 'crawl', 'ia_archiver', 'lycos');
+			$bots = array(
+			    'googlebot',
+                'msnbot',
+                'slurp',
+                'ask jeeves',
+                'crawl',
+                'ia_archiver',
+                'lycos',
+                'bingbot',
+                'duckduckbot',
+                'baiduspider',
+                'yandexbot',
+                'facebot',
+                'ia_archiver'
+            );
+            
 			foreach($bots as $botname)
 			{
 				if(stripos($_SERVER['HTTP_USER_AGENT'], $botname) !== FALSE)
